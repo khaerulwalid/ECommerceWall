@@ -25,14 +25,14 @@
                         <form action="/category" method="post">
                             @csrf
                             <div class="input-group mr-3">
-                                <input type="text" name="name" class="text-white form-control @error('name') is-invalid @enderror" placeholder="Category name" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" name="name" class="text-white form-control @error('name') is-invalid @enderror" placeholder="@error('name') {{ $message }} @else Category name @enderror" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                       </div>
 
                       <div class="me-auto text-sm-right pt-2 pt-sm-0">
                         <button type="submit" class="btn btn-danger">Add Category Data</button>
                       </div>
-                      
+
                         </form>
                         {{-- End Form Input Category --}}
                     </div>
