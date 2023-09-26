@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,5 @@ Route::middleware([
 });
 
 Route::get('/redirect', [HomeController::class, 'redirect']);
+
+Route::resource('/category', CategoryController::class);
