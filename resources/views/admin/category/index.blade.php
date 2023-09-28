@@ -33,8 +33,12 @@
                         <p class="text-muted mb-0">This is {{ $category->name }} category </p>
                       </div>
                       <div class="me-auto text-sm-right pt-2 pt-sm-0">
-                        <a href="#" class="btn btn-danger">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="/category/{{ $category->id }}/edit" class="btn btn-danger">Edit</a>
+                        <form action="/category/{{ $category->id }}" method="post" class="d-inline">
+                          @method('delete')
+                          @csrf
+                          <button class="btn btn-danger" type="submit" onclick="return confirm('Yakin data di hapus ?')">Delete</button>
+                        </form>
                       </div>
                     </div>
                   </div>

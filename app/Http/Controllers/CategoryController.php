@@ -52,7 +52,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -60,7 +62,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:categories'
+        ]);
+
+        Category::where('id', $category->id)
+            ->update($validated);
+
+        return redirect('/category')->with('success', 'Data has been updated');
     }
 
     /**
@@ -68,6 +77,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        Category::destroy($category->id);
+
+        return redirect('/category')->with('success', 'Data has been delete');
     }
 }
