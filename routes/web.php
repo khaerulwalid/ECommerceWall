@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,5 @@ Route::middleware([
 Route::get('/redirect', [HomeController::class, 'redirect']);
 
 Route::resource('/category', CategoryController::class);
+
+Route::resource('/product', ProductController::class);
