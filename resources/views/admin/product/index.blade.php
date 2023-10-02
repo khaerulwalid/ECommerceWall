@@ -31,19 +31,19 @@
                           </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($products as $product)
                           <tr class="table-success">
                             <td> {{ $loop->iteration }} </td>
-                            <td> <b>{{ $category->name }}</b> </td>
-                            <td> <i>{{ number_format($category->price) }}</i> </td>
-                            <td> {{ number_format($category->quantity) }} </td>
-                            <td> {{ number_format($category->discount) }} </td>
-                            <td> {{ $category->category }} </td>
+                            <td> <b>{{ $product->name }}</b> </td>
+                            <td> <i>{{ number_format($product->price) }}</i> </td>
+                            <td> {{ number_format($product->quantity) }} </td>
+                            <td> {{ number_format($product->discount) }} </td>
+                            <td> {{ $product->category }} </td>
                             <td>
-                                <img src="{{ asset('storage/' . $category->image) }}" style="width: 100px; height: 100px;" alt="">
+                                <img src="{{ asset('storage/' . $product->image) }}" style="width: 100px; height: 100px;" alt="">
                             </td>
                             <td>
-                                <a href="" class="btn btn-primary">Edit</a>
+                                <a href="/product/{{ $product->id }}/edit" class="btn btn-primary">Edit</a>
                                 <a href="" class="btn btn-danger">Delete</a>
                             </td>
                           </tr>

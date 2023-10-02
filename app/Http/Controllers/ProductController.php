@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {  
         return view('admin.product.index', [
-            'categories' => Product::all()
+            'products' => Product::all()
         ]);
     }
 
@@ -39,7 +40,7 @@ class ProductController extends Controller
             'image' => 'image|file|max:2048',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
-            'category' => 'max:50',
+            'category' => 'required|max:50',
             'discount' => 'required|numeric'
         ]);
 
@@ -65,7 +66,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', [
+            'product' => $product,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -73,7 +77,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'max:400',
+            'image' => 'image|file|max:2048',
+            'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'category' => 'required|max:50',
+            'discount' => 'required|numeric'
+        ]);
+
+        if($request->file('image')) {
+            if($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+
+            $validated['image'] = $request->file('image')->store('image');
+        }
+
+        Product::where('id', $product->id)
+                ->update($validated);
+
+        return redirect('/product')->with('success', 'Data has been update');
     }
 
     /**

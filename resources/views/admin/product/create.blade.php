@@ -37,9 +37,16 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control text-white" id="inputGroupFile02" name="image">
+                                <input type="file" class="form-control @error('image') is-invalid @enderror text-white" id="inputGroupFile02" name="image">
                                 <label class="input-group-text bg-primary text-white" for="inputGroupFile02">Upload</label>
-                              </div>
+
+                                {{-- // Image preview --}}
+                                @if($product->image)
+
+                                @else
+
+                                @endif
+                            </div>
 
                             <div class="form-group">
                                 <label for="price">Price</label>
@@ -60,14 +67,15 @@
                                     class="form-control text-white"
                                     id="category" name="category"
                                 >
-                                    <option>-- Select Category --</option>
-
-                                    
+                                <option disabled selected hidden>Choose Category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
 
                                 </select>
+                                @error('category')
+                                  <label style="color:red" for="category">{{ $message }}</label>
+                                @enderror
                             </div>
                             
 
